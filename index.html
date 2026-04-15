@@ -2,61 +2,55 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GB Régularité</title>
-
-  manifest.json
-  style.css
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>GB Régularité</h1>
 
-  <label>Type de séance</label>
-  <select id="type">
-    <option>Entraînement</option>
-    <option>Match</option>
-  </select>
+<h1>GB Régularité</h1>
 
-  <div class="criteres">
-    <p>Engagement :
-      <button onclick="setScore(0,0)">0</button>
-      <button onclick="setScore(0,1)">1</button>
-      <button onclick="setScore(0,2)">2</button>
-    </p>
+<label>Type de séance</label>
+<select id="type">
+  <option>Entraînement</option>
+  <option>Match</option>
+</select>
 
-    <p>Réaction après échec :
-      <button onclick="setScore(1,0)">0</button>
-      <button onclick="setScore(1,1)">1</button>
-      <button onclick="setScore(1,2)">2</button>
-    </p>
+<h3>Engagement</h3>
+<button class="g0" onclick="setScore(0,0,this)">0</button>
+<button class="g0" onclick="setScore(0,1,this)">1</button>
+<button class="g0" onclick="setScore(0,2,this)">2</button>
 
-    <p>Posture :
-      <button onclick="setScore(2,0)">0</button>
-      <button onclick="setScore(2,1)">1</button>
-      <button onclick="setScore(2,2)">2</button>
-    </p>
+<h3>Réaction après échec</h3>
+<button class="g1" onclick="setScore(1,0,this)">0</button>
+<button class="g1" onclick="setScore(1,1,this)">1</button>
+<button class="g1" onclick="setScore(1,2,this)">2</button>
 
-    <p>Attention :
-      <button onclick="setScore(3,0)">0</button>
-      <button onclick="setScore(3,1)">1</button>
-      <button onclick="setScore(3,2)">2</button>
-    </p>
+<h3>Posture</h3>
+<button class="g2" onclick="setScore(2,0,this)">0</button>
+<button class="g2" onclick="setScore(2,1,this)">1</button>
+<button class="g2" onclick="setScore(2,2,this)">2</button>
 
-    <p>Attitude :
-      <button onclick="setScore(4,0)">0</button>
-      <button onclick="setScore(4,1)">1</button>
-      <button onclick="setScore(4,2)">2</button>
-    </p>
-  </div>
+<h3>Attention</h3>
+<button class="g3" onclick="setScore(3,0,this)">0</button>
+<button class="g3" onclick="setScore(3,1,this)">1</button>
+<button class="g3" onclick="setScore(3,2,this)">2</button>
 
-  <textarea id="note" placeholder="Qu’ai-je réussi à maintenir aujourd’hui ?"></textarea>
+<h3>Attitude</h3>
+<button class="g4" onclick="setScore(4,0,this)">0</button>
+<button class="g4" onclick="setScore(4,1,this)">1</button>
+<button class="g4" onclick="setScore(4,2,this)">2</button>
 
-  <button class="save" onclick="save()">Enregistrer</button>
+<br><br>
+<textarea id="note" placeholder="Qu’ai-je réussi à maintenir aujourd’hui ?"></textarea>
 
-  <h2>Historique</h2>
-  <ul id="history"></ul>
+<br><br>
+<button onclick="save()">Enregistrer</button>
 
-  app.js
+<h2>Historique</h2>
+<ul id="history"></ul>
+
+<script src="app.js"></script>
 </body>
 </html>
