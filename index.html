@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body><div id="mainView">
 
 <h1>GB Marius Régularité</h1>
 
@@ -22,22 +22,22 @@
   <option>Match</option>
 </select>
 
-<h3>Engagement</h3>
+<h3>Engagement/agressivité</h3>
 <button class="g0" onclick="setScore(0,0,this)">0</button>
 <button class="g0" onclick="setScore(0,1,this)">1</button>
 <button class="g0" onclick="setScore(0,2,this)">2</button>
 
-<h3>Réaction après échec</h3>
+<h3>Réaction après échec, gestion des émotion</h3>
 <button class="g1" onclick="setScore(1,0,this)">0</button>
 <button class="g1" onclick="setScore(1,1,this)">1</button>
 <button class="g1" onclick="setScore(1,2,this)">2</button>
 
-<h3>Posture (Grand/équilibré/agressif)</h3>
+<h3>Posture (Grand/équilibré/appuis/stabilité/gainage)</h3>
 <button class="g2" onclick="setScore(2,0,this)">0</button>
 <button class="g2" onclick="setScore(2,1,this)">1</button>
 <button class="g2" onclick="setScore(2,2,this)">2</button>
 
-<h3>Attention, concentration</h3>
+<h3>Attention, concentration, fatigue</h3>
 <button class="g3" onclick="setScore(3,0,this)">0</button>
 <button class="g3" onclick="setScore(3,1,this)">1</button>
 <button class="g3" onclick="setScore(3,2,this)">2</button>
@@ -46,16 +46,6 @@
 <button class="g4" onclick="setScore(4,0,this)">0</button>
 <button class="g4" onclick="setScore(4,1,this)">1</button>
 <button class="g4" onclick="setScore(4,2,this)">2</button>
-
-<h3>auto-évaluation corporelle (Appuis, stabilité, gainage)</h3>
-<button class="g5" onclick="setScore(4,0,this)">0</button>
-<button class="g5" onclick="setScore(4,1,this)">1</button>
-<button class="g5" onclick="setScore(4,2,this)">2</button>
-
-<h3>Gestion des émotions et de la fatigue</h3>
-<button class="g6" onclick="setScore(4,0,this)">0</button>
-<button class="g6" onclick="setScore(4,1,this)">1</button>
-<button class="g6" onclick="setScore(4,2,this)">2</button>
 
 <br><br>
 <h3>Mes réussites ?</h3>
@@ -71,8 +61,25 @@
 <h2>Indice hebdomadaire</h2>
 <p id="weeklyIndex">Aucune donnée</p>
 
+<button onclick="showProgress()">📈 Voir ma progression</button>
+
 <h2>Historique</h2>
 <ul id="history"></ul>
+
+
+</body>
+</div> <!-- fin mainView -->
+  <!-- TOUTE L’APP PRINCIPALE -->
+  </div>
+
+<div id="progressView" style="display: none;">
+  <h2>Progression</h2>
+
+  <canvas id="progressChart" width="300" height="200"></canvas>
+
+  <br><br>
+  <button onclick="hideProgress()">⬅️ Retour</button>
+</div>
 
 <script src="app.js"></script>
 </body>
