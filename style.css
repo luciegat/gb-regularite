@@ -18,6 +18,12 @@ button {
   margin: 3px;
 }
 
+button.selected {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+}
+
 .save {
   width: 100%;
   padding: 10px;
