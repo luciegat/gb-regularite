@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GB Régularité</title>
+
+  manifest.json
+  style.css
+</head>
+
+<body>
+  <h1>GB Régularité</h1>
+
+  <label>Type de séance</label>
+  <select id="type">
+    <option>Entraînement</option>
+    <option>Match</option>
+  </select>
+
+  <div class="criteres">
+    <p>Engagement :
+      <button onclick="setScore(0,0)">0</button>
+      <button onclick="setScore(0,1)">1</button>
+      <button onclick="setScore(0,2)">2</button>
+    </p>
+
+    <p>Réaction après échec :
+      <button onclick="setScore(1,0)">0</button>
+      <button onclick="setScore(1,1)">1</button>
+      <button onclick="setScore(1,2)">2</button>
+    </p>
+
+    <p>Posture :
+      <button onclick="setScore(2,0)">0</button>
+      <button onclick="setScore(2,1)">1</button>
+      <button onclick="setScore(2,2)">2</button>
+    </p>
+
+    <p>Attention :
+      <button onclick="setScore(3,0)">0</button>
+      <button onclick="setScore(3,1)">1</button>
+      <button onclick="setScore(3,2)">2</button>
+    </p>
+
+    <p>Attitude :
+      <button onclick="setScore(4,0)">0</button>
+      <button onclick="setScore(4,1)">1</button>
+      <button onclick="setScore(4,2)">2</button>
+    </p>
+  </div>
+
+  <textarea id="note" placeholder="Qu’ai-je réussi à maintenir aujourd’hui ?"></textarea>
+
+  <button class="save" onclick="save()">Enregistrer</button>
+
+  <h2>Historique</h2>
+  <ul id="history"></ul>
+
+  app.js
+</body>
+</html>
