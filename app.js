@@ -200,4 +200,31 @@ function drawChart() {
   });
 }
 
+function exportExcel() {
+  let data = JSON.parse(localStorage.getItem("gbData")) || [];
+
+  if (data.length === 0) {
+    alert("Aucune donnée à exporter");
+    return;
+  }
+
+  // En-têtes du fichier Excel
+  let csv = "Date;Type;Score total;Commentaire\n";
+
+  data.forEach(e => {
+    csv += `${e.date};${e.type};${e.total};"${e.note || ""}"\n`;
+  });
+
+  // Création du fichier
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", "suivi_gardien_regularete.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 ``
