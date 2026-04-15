@@ -1,82 +1,79 @@
-let scores = [null, null, null, null, null];
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>GB Marius Régularité</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-function setScore(index, value, button) {
-  scores[index] = value;
+<body>
 
-  // Supprimer le vert des autres boutons du même groupe
-  const group = button.getAttribute("data-group");
-  document
-    .querySelectorAll(`button[data-group="${group}"]`)
-    .forEach(btn => btn.classList.remove("selected"));
+<h1>GB Marius Régularité</h1>
 
-  // Mettre le bouton cliqué en vert
-  button.classList.add("selected");
-}
+<p class="legend">
+  <strong>Légende :</strong>
+  0 = non fait/non maitrisé | 1 = parfois fait/moyen maitrisé | 2 = constant/maitrisé
+</p>
 
-function save() {
-  const total = scores.reduce((a, b) => a + (b ?? 0), 0);
-  const note = document.getElementById("note").value;
-  const type = document.getElementById("type").value;
+<label>Type de séance</label>
+<select id="type">
+  <option>Entraînement</option>
+  <option>Match</option>
+</select>
 
-  const entry = {
-    date: new Date().toLocaleDateString(),
-    type,
-    total,
-    note
-  };
+<h3>Engagement</h3>
+<button class="g0" onclick="setScore(0,0,this)">0</button>
+<button class="g0" onclick="setScore(0,1,this)">1</button>
+<button class="g0" onclick="setScore(0,2,this)">2</button>
 
-  let data = JSON.parse(localStorage.getItem("gbData")) || [];
-  data.push(entry);
-  localStorage.setItem("gbData", JSON.stringify(data));
+<h3>Réaction après échec</h3>
+<button class="g1" onclick="setScore(1,0,this)">0</button>
+<button class="g1" onclick="setScore(1,1,this)">1</button>
+<button class="g1" onclick="setScore(1,2,this)">2</button>
 
-  display();
-}
+<h3>Posture (Grand/équilibré/agressif)</h3>
+<button class="g2" onclick="setScore(2,0,this)">0</button>
+<button class="g2" onclick="setScore(2,1,this)">1</button>
+<button class="g2" onclick="setScore(2,2,this)">2</button>
 
-function display() {
-  const list = document.getElementById("history");
-  list.innerHTML = "";
+<h3>Attention, concentration</h3>
+<button class="g3" onclick="setScore(3,0,this)">0</button>
+<button class="g3" onclick="setScore(3,1,this)">1</button>
+<button class="g3" onclick="setScore(3,2,this)">2</button>
 
-  let data = JSON.parse(localStorage.getItem("gbData")) || [];
+<h3>Attitude (présence, motivation, langage corporel)</h3>
+<button class="g4" onclick="setScore(4,0,this)">0</button>
+<button class="g4" onclick="setScore(4,1,this)">1</button>
+<button class="g4" onclick="setScore(4,2,this)">2</button>
 
-  data.slice().reverse().forEach((e, i) => {
-    const realIndex = data.length - 1 - i;
+<h3>auto-évaluation corporelle (Appuis, stabilité, gainage)</h3>
+<button class="g5" onclick="setScore(4,0,this)">0</button>
+<button class="g5" onclick="setScore(4,1,this)">1</button>
+<button class="g5" onclick="setScore(4,2,this)">2</button>
 
-    const li = document.createElement("li");
-    li.style.marginBottom = "10px";
+<h3>Gestion des émotions et de la fatigue</h3>
+<button class="g6" onclick="setScore(4,0,this)">0</button>
+<button class="g6" onclick="setScore(4,1,this)">1</button>
+<button class="g6" onclick="setScore(4,2,this)">2</button>
 
-    const main = document.createElement("div");
-    main.textContent = `${e.date} | ${e.type} | IFG ${e.total}/10`;
+<br><br>
+<h3>Mes réussites ?</h3>
+<textarea id="note" placeholder="texte"></textarea>
 
-    const comment = document.createElement("div");
-    comment.textContent = e.note ? `📝 ${e.note}` : "";
-    comment.style.fontSize = "0.9em";
-    comment.style.color = "#555";
-    comment.style.marginLeft = "10px";
+<br><br>
+<h3>Mes erreurs ? Ce que j'aurais pu faire ?</h3>
+<textarea id="note" placeholder="texte"></textarea>
 
-    const btn = document.createElement("button");
-    btn.textContent = "🗑️";
-    btn.style.marginLeft = "10px";
-    btn.onclick = function () {
-      deleteEntry(realIndex);
-    };
+<br><br>
+<button onclick="save()">Enregistrer</button>
 
-    li.appendChild(main);
-    if (e.note) li.appendChild(comment);
-    li.appendChild(btn);
+<h2>Indice hebdomadaire</h2>
+<p id="weeklyIndex">Aucune donnée</p>
 
-    list.appendChild(li);
-  });
-}
+<h2>Historique</h2>
+<ul id="history"></ul>
 
-display();
-
-function deleteEntry(index) {
-  let data = JSON.parse(localStorage.getItem("gbData")) || [];
-
-  if (confirm("Supprimer cette ligne ?")) {
-    data.splice(index, 1);
-    localStorage.setItem("gbData", JSON.stringify(data));
-    display();
-  }
-}
-``
+<script src="app.js"></script>
+</body>
+</html>
