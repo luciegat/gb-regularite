@@ -15,6 +15,19 @@ function setScore(index, value, button) {
 
 function save() {
   const total = scores.reduce((a, b) => a + (b ?? 0), 0);
+
+let message = "";
+
+if (total <= 4) {
+  message = "🔴 Séance irrégulière.\nCe n’est pas la note d’un jour qui compte, mais la couleur de ta semaine. Accroche toi 💖";
+} else if (total <= 7) {
+  message = "🟠 Séance correcte mais inconstante.\nTu n’as pas besoin d’être spectaculaire. Tu dois être fiable, présent, stable et acteur. Force et courage 🥰";
+} else {
+  message = "🟢 Très bonne régularité.\nLa régularité, ce n’est pas être fort quand tout va bien. C’est être solide quand c’est moyen.I believe in you 😍";
+}
+
+alert(message);
+
   const note = document.getElementById("note").value;
   const type = document.getElementById("type").value;
 
@@ -55,7 +68,6 @@ if (e.total <= 4) {
   main.style.color = "green";
 }
 main.style.fontWeight = "bold";
-``
 
     const comment = document.createElement("div");
     comment.textContent = e.note ? `📝 ${e.note}` : "";
@@ -123,6 +135,69 @@ function updateWeeklyIndex() {
   }
 
   el.style.fontWeight = "bold";
+}
+
+function showProgress() {
+  document.getElementById("mainView").style.display = "none";
+  document.getElementById("progressView").style.display = "block";
+  setTimeout(drawChart, 50);
+}
+
+function hideProgress() {
+  document.getElementById("progressView").style.display = "none";
+  document.getElementById("mainView").style.display = "block";
+}
+
+function drawChart() {
+  const canvas = document.getElementById("progressChart");
+
+  canvas.width = canvas.offsetWidth || 300;
+  canvas.height = 250;
+
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  let data = JSON.parse(localStorage.getItem("gbData")) || [];
+
+  if (data.length === 0) {
+    ctx.font = "14px Arial";
+    ctx.fillText("Aucune donnée à afficher", 50, 120);
+    return;
+  }
+
+  const padding = 30;
+  const maxScore = 10;
+
+  const stepX = (canvas.width - 2 * padding) / (data.length - 1 || 1);
+  const stepY = (canvas.height - 2 * padding) / maxScore;
+
+  ctx.strokeStyle = "#000";
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, canvas.height - padding);
+  ctx.lineTo(canvas.width - padding, canvas.height - padding);
+  ctx.stroke();
+
+  ctx.strokeStyle = "#2ecc71";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+
+  data.forEach((e, i) => {
+    const x = padding + i * stepX;
+    const y = canvas.height - padding - e.total * stepY;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+
+  ctx.stroke();
+
+  data.forEach((e, i) => {
+    const x = padding + i * stepX;
+    const y = canvas.height - padding - e.total * stepY;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "#2ecc71";
+    ctx.fill();
+  });
 }
 
 ``
