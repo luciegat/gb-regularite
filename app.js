@@ -299,21 +299,6 @@ function resetForm() {
   document.querySelectorAll("textarea").forEach(t => {
     t.value = "";
   });
-}
-
-function resetForm() {
-  // Réinitialiser les scores
-  scores = scores.map(() => null);
-
-  // Enlever la sélection verte des boutons
-  document.querySelectorAll("button.selected").forEach(btn => {
-    btn.classList.remove("selected");
-  });
-
-  // Vider toutes les zones de texte
-  document.querySelectorAll("textarea").forEach(t => {
-    t.value = "";
-  });
 
   // ✅ Remettre le sélecteur sur "Entraînement"
   document.getElementById("type").selectedIndex = 0;
