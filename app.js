@@ -43,6 +43,7 @@ alert(message);
   localStorage.setItem("gbData", JSON.stringify(data));
 
   display();
+  resetForm();
 }
 
 function display() {
@@ -282,6 +283,21 @@ function drawChartByType(canvasId, sessionType, color) {
     ctx.arc(x, y, 3, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.fill();
+  });
+}
+
+function resetForm() {
+  // Réinitialiser les scores
+  scores = scores.map(() => null);
+
+  // Enlever la sélection verte des boutons
+  document.querySelectorAll("button.selected").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
+  // Vider les zones de texte
+  document.querySelectorAll("textarea").forEach(t => {
+    t.value = "";
   });
 }
 
