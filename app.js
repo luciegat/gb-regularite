@@ -140,7 +140,11 @@ function updateWeeklyIndex() {
 function showProgress() {
   document.getElementById("mainView").style.display = "none";
   document.getElementById("progressView").style.display = "block";
-  setTimeout(drawChart, 50);
+
+  setTimeout(() => {
+    drawChartByType("trainingChart", "Entraînement", "#3498db");
+    drawChartByType("matchChart", "Match", "#e74c3c");
+  }, 50);
 }
 
 function hideProgress() {
@@ -225,6 +229,60 @@ function exportExcel() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+function drawChartByType(canvasId, sessionType, color) {
+  const canvas = document.getElementById(canvasId);
+  canvas.width = canvas.offsetWidth || 300;
+  canvas.height = 220;
+
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const allData = JSON.parse(localStorage.getItem("gbData")) || [];
+  const data = allData.filter(e => e.type === sessionType);
+
+  if (data.length === 0) {
+    ctx.font = "14px Arial";
+    ctx.fillText("Aucune donnée à afficher", 40, 120);
+    return;
+  }
+
+  const padding = 30;
+  const maxScore = 10;
+  const stepX = (canvas.width - 2 * padding) / (data.length - 1 || 1);
+  const stepY = (canvas.height - 2 * padding) / maxScore;
+
+  // Axes
+  ctx.strokeStyle = "#000";
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, canvas.height - padding);
+  ctx.lineTo(canvas.width - padding, canvas.height - padding);
+  ctx.stroke();
+
+  // Courbe
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+
+  data.forEach((e, i) => {
+    const x = padding + i * stepX;
+    const y = canvas.height - padding - e.total * stepY;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+
+  ctx.stroke();
+
+  // Points
+  data.forEach((e, i) => {
+    const x = padding + i * stepX;
+    const y = canvas.height - padding - e.total * stepY;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  });
 }
 
 ``
