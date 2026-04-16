@@ -68,17 +68,26 @@
 <h2>Historique</h2>
 <ul id="history"></ul>
 
+
 </body>
 </div> <!-- fin mainView -->
   <!-- TOUTE L’APP PRINCIPALE -->
   </div>
 
 <div id="progressView" style="display: none;">
-  <h2>Progression</h2>
+<p class="progress-quote">
+  L’entraînement construit,<br>
+  le match révèle.<br>
+  Les deux doivent progresser, mais pas forcément au même rythme.
+</p>
 
-  <canvas id="progressChart" width="300" height="200"></canvas>
+  <h2>📘 Progression Entraînements</h2>
+  <canvas id="trainingChart"></canvas>
 
-  <br><br>
+  <h2>🏟️ Progression Matchs</h2>
+  <canvas id="matchChart"></canvas>
+
+  <br>
   <button onclick="hideProgress()">⬅️ Retour</button>
 </div>
 
