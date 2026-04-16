@@ -300,7 +300,7 @@ function resetForm() {
     t.value = "";
   });
 
-  // ✅ Remettre le sélecteur sur "Entraînement"
+  // Remettre le sélecteur sur "Entraînement"
   document.getElementById("type").selectedIndex = 0;
 }
 
